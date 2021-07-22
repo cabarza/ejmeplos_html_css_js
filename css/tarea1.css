@@ -1,0 +1,18 @@
+.caja {
+    background-color: orange;
+    height: 200px;
+    width: 200px;
+    margin: 3px;
+}
+
+@media (max-width: 768px){
+    .contenedor{
+        display: block;
+    }
+}
+
+@media (min-width: 769px){
+    .contenedor{
+        display: flex;
+    }
+}
