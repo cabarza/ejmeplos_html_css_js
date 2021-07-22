@@ -1,0 +1,41 @@
+div {
+    height: 200px;
+    width: 1000px;
+    background-color: orange !important;
+}
+
+@media only screen and (max-width: 480px){
+    div {
+        height: 100px;
+        width: 200px;
+        margin: 0 auto;
+        background-color: black;
+        color: white;
+    }
+    h1 {
+        font-size: small;
+    }
+}
+
+
+@media only screen and (min-width: 481px) and (max-width: 1023px){
+    div {
+        height: 200px;
+        width: 400px;
+        margin: 0 auto;
+        background-color: red;
+        color: green;
+    }
+}
+
+
+@media only screen and (min-width: 1200px){
+    div {
+        height: 300px;
+        width: 600px;
+        margin: 0 auto;
+        background-color: green !important;
+        color: white;
+        text-align: center;
+    }
+}
