@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <div>
+            <input type="text" id="texto1">
+            <input type="checkbox" id="chk1">
+            <textarea type="textarea" id="ta1" onkeyup="contador()"></textarea>
+            <span id="contador"></span>
+            <select id="sel1" onchange="seleccionar()">
+                <option value="1">Opción 1</option>
+                <option value="2">Opción 2</option>
+                <option value="3">Opción 3</option>
+                <option value="4">Opción 4</option>
+            </select>
+
+            <div id="div1" style="background-color: red; color: white; height: 100px;">
+                <h1>DIV 1</h1>
+            </div>
+            <div id="div2" style="background-color: green; color: white;height: 100px">
+                <h1>DIV 2</h1>
+            </div>
+            <div id="div3" style="background-color: yellow; color: black;height: 100px">
+                <h1>DIV 3</h1>
+            </div>
+        </div>
+
+        <button type="button" onclick="cambiarDiv()">Cambiar Div</button>
+        <button type="button" onclick="toggleDiv()">Toggle DIV</button>
+        <button type="button" onclick="asignarValorInput()">Cambiar Texto</button>
+        <button type="button" onclick="checkCaja()">Cambiar Check</button>
+        <script>
+
+            // $(document).ready(() =>{
+            //     const divs = $('div');
+            //     console.log(divs);
+            //     for(let e of divs) {
+            //         console.log('E', e);
+            //         if(e.id.indexOf('div')==0) {
+            //             $('#' + e.id).hide  ();
+            //         }
+            //     }
+            // });
+
+            function toggleDiv() {
+                $("#div2").fadeToggle(1000);
+            }
+
+            function cambiarDiv() {
+                $("#div3").css('height', '500px');
+                $("#div3").css('width', '500px');
+                $('$div1').slideUp(1000);
+            }
+
+            const asignarValorInput = () => {
+                alert($('#texto1').val());
+                $('#texto1').val('1234567890');
+            }
+
+            const checkCaja = () => {
+                $('#chk1').prop( "checked", !$('#chk1').prop('checked') );
+            }
+
+            const contador = () => {
+                $('#contador').text($('#ta1').val().length);
+            }
+
+            const seleccionar = () => {
+                $('#texto1').val($('#sel1').val());
+            }
+
+
+        </script>
+    </body>
+
+</html>
