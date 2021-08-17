@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body>
+        
+        <h1>Comienza el ejemplo de JQuery</h1>
+        <button type="button" onclick="procesar()" value="Procesar">Procesar</button>
+        <div id="contenido" style="background-color: black;"></div>
+
+        <script>
+            $(document).ready(() => {
+
+            });
+
+            function procesar() {
+                $('h1').text('Procesando .....');
+                $('button').html('Terminar');
+                $('button').on('click', () => {
+                    $('h1').text('Terminado!!!');
+                    $('button').on('click', procesar); 
+                    $('button').html('Procesar');
+                });
+                for(let i = 1; i<= 100; i++){
+                    $('#contenido').animate({
+                            height: 10*i,
+                            width: 10*i,
+                            backgroundColor: 'red'
+                        }, 1000, function() {
+                            // Animation complete.
+                    });
+                }
+            }
+
+            function sleep(milliseconds) {
+                const date = Date.now();
+                let currentDate = null;
+                do {
+                    currentDate = Date.now();
+                } while (currentDate - date < milliseconds);
+            }
+
+        </script>
+    </body>
+</html>

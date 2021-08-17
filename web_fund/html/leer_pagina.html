@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <script>
+            $(document).ready(() =>{
+                let url = `http://localhost:5000`;
+                console.log('URL', url);
+                $.ajax(url, {
+                    contentType: 'plain/text',
+                    method: 'get',
+                    crossDomain: true
+                }).done(response => {
+                    console.log(response);
+                    $('body').html(response);
+                });
+            });
+        </script>
+    </body>
+</html>
