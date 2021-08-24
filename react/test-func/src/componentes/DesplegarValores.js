@@ -23,12 +23,14 @@ const DesplegarValores = ({lista, setLista}) => {
     return (
         <table style={{width:'100%'}}>
             <thead>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Email</th>
-                <th>Sexo</th>
-                <th>Check</th>
-                <th>Acción</th>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Email</th>
+                    <th>Sexo</th>
+                    <th>Check</th>
+                    <th>Acción</th>
+                </tr>
             </thead>
             <tbody>
                 {lista.map((e, i)=> 
