@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import UserContext from "../../context/context";
 
 const LaHora = (props) => {
@@ -19,7 +19,7 @@ const LaHora = (props) => {
 
 
 
-    }, []);
+    });
 
     return (
         <div>

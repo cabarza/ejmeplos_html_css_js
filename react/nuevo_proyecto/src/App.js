@@ -6,36 +6,44 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import UserContext from './context/context';
 import { useState } from 'react';
 import Vista1 from './components/contador/view/Vista1';
-import Vista2 from './components/contador/view/Vista2';
+import Formulario from './components/formulario/Formulario';
+import Header from './components/layout/Header';
+import Main from './components/contador/view/Main';
 
 function App() {
 
   const [time, setTime] = useState(new Date().toLocaleString());
+  const [usuario, setUsuario] = useState({
+    nombre: '',
+    apellido: '',
+    email: ''
+  })
 
   return (
-    <UserContext.Provider value={{time, setTime}}>
+    <UserContext.Provider value={{time, setTime, usuario, setUsuario}}>
       <Router>
+        <Header></Header>
         <div className="App">
-        <Link to="/">Timer</Link>&nbsp;&nbsp; 
-        <Link to="/swapi">Swapi</Link>&nbsp;&nbsp; 
-        <Link to="/vista1">Vista1</Link>&nbsp;&nbsp; 
-        <Link to="/vista2">Vista2</Link>
-        <Switch>
-          <Route exact path="/">
-            <LaHora></LaHora>
-          </Route>
-          <Route path="/swapi">
-            <Swapi></Swapi>
-          </Route>
-          <Route path="/vista1">
-            <Vista1></Vista1>
-          </Route>
-          <Route path="/vista2">
-            <Vista2></Vista2>
-          </Route>
-          
-        </Switch>
-      </div>
+          <Switch>
+            <Route exact path="/">
+              <LaHora></LaHora>
+              <Vista1></Vista1>
+            </Route>
+            <Route path="/swapi">
+              <Swapi></Swapi>
+            </Route>
+            <Route path="/vistas">
+              <Main></Main>
+            </Route>
+            <Route path="/formulario">
+              <Formulario></Formulario>
+            </Route>
+            <Route path="/formulario2/:name">
+              <Formulario></Formulario>
+            </Route>
+            
+          </Switch>
+        </div>
       </Router>
     </UserContext.Provider>
     
