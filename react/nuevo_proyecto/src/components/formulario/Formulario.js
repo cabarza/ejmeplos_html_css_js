@@ -5,12 +5,14 @@ import UserContext from '../../context/context';
 const initialState = {
     nombre: '',
     apellido: '',
-    email: ''
+    email: '',
+    deAcuerdo: false
 }
 const initialErrors = {
     nombreError: 'Este campo es requerido',
     apellidoError: 'Este campo es requerido',
-    emailError: ''
+    emailError: '',
+    deAcuerdoError: ''
 }
 
 const Formulario = (props) => {
@@ -33,10 +35,11 @@ const Formulario = (props) => {
     }, [nombre])
 
     const updateFormInputs = (e) => {
-        const {name, value} = e.target;
+        const {name, value, checked, type} = e.target;
+        console.log(`Input: ${name} value: ${value} checked: ${checked} type: ${type}`);
         setInputs({
             ...inputs,
-            [name]: value
+            [name]: (type=='checkbox' || type=='radio')? checked: value
         });
         // Validaciones
         if(name === 'nombre'){
@@ -79,10 +82,32 @@ const Formulario = (props) => {
         }
     }
 
+    const updateFormChecked =(e) => {
+        const { name, checked } = e.target;
+        console.log(`Input: ${name} checked: ${checked}`)
+        setInputs({
+            ...inputs,
+            [name]: checked
+        });
+    }
+
     const submitForm = (e) => {
         e.preventDefault();
         if(errors.nombreError || errors.apellidoError || errors.emailError) {
             return;
+        }else if(!inputs.deAcuerdo) {
+            setErrors({
+                ...errors,
+                deAcuerdoError: 'Debe aceptar las condiciones'
+            });
+            return;
+        } else {
+            setErrors({
+                nombreError: '',
+                apellidoError: '',
+                emailError: '',
+                deAcuerdoError: ''
+            });
         }
         context.setUsuario(inputs);
     } 
@@ -108,6 +133,14 @@ const Formulario = (props) => {
                 <input type="text" name="email" value={inputs.email} onChange={updateFormInputs}/>
                 {
                     errors.emailError && <span style={{color: 'red'}}>{errors.emailError}</span>
+                }
+            </div>
+
+            <div>
+                <label>De acuerdo?:</label>
+                <input type="checkbox" name="deAcuerdo" checked={inputs.deAcuerdo} onChange={updateFormInputs}/>
+                {
+                    errors.deAcuerdoError && <span style={{color: 'red'}}>{errors.deAcuerdoError}</span>
                 }
             </div>
 
