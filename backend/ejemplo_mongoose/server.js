@@ -1,14 +1,17 @@
-const express = require('express');
+import express, { json, urlencoded } from 'express';
+import { conectarBD } from './config/db.config.js';
+import {usuarioRoutes} from './routes/usuario.routes.js';
+
 const app = express();
 const port = 8000;
 
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(json());
+app.use(urlencoded({extended: true}));
 
-require('./config/db.config');
+conectarBD();
 
-require('./routes/usuario.routes')(app);
+usuarioRoutes(app);
 
 
 

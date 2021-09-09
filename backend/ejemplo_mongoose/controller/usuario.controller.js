@@ -1,6 +1,6 @@
-const Usuario = require('../model/usuario.model');
+import Usuario from '../model/usuario.model.js';
 
-module.exports.crear = (req, res) => {
+export const crear = (req, res) => {
     req.body.activo = true;
     Usuario.create(req.body)
         .then(data => res.json(data))
@@ -11,7 +11,7 @@ module.exports.crear = (req, res) => {
         })
 }
 
-module.exports.listar = (req, res) => {
+export const listar = (req, res) => {
     Usuario.find()
         .then(data => res.json(data))
         .catch(error => {
@@ -21,7 +21,7 @@ module.exports.listar = (req, res) => {
         })
 }
 
-module.exports.buscar = (req, res) => {
+export const buscar = (req, res) => {
     Usuario.findById(req.params.id)
         .then(data => res.json(data))
         .catch(error => {
@@ -31,7 +31,7 @@ module.exports.buscar = (req, res) => {
         })
 }
 
-module.exports.editar = (req, res) => {
+export const editar = (req, res) => {
     req.body.activo = true;
     Usuario.findByIdAndUpdate(req.params.id, req.body)
     .then(data => res.json(data))
@@ -42,7 +42,7 @@ module.exports.editar = (req, res) => {
     })
 }
 
-module.exports.deshabilitar = (req, res) => {
+export const deshabilitar = (req, res) => {
     Usuario.findById(req.params.id).
         then(usuario => {
             usuario.activo = false;
@@ -61,7 +61,7 @@ module.exports.deshabilitar = (req, res) => {
         })
 }
 
-module.exports.elimninar = (req, res) => {
+export const eliminar = (req, res) => {
     Usuario.findByIdAndDelete(req.params.id)
     .then(data => res.json(data))
         .catch(error => {

@@ -1,10 +1,10 @@
-const UsuarioController = require('../controller/usuario.controller');
+import {crear, listar, buscar, editar, eliminar, deshabilitar}  from '../controller/usuario.controller.js';
 
-module.exports = app => {
-    app.get('/api/usuarios', UsuarioController.listar);
-    app.get('/api/usuarios/:id', UsuarioController.buscar);
-    app.post('/api/usuarios', UsuarioController.crear);
-    app.put('/api/usuarios/:id', UsuarioController.editar);
-    app.delete('/api/usuarios/:id', UsuarioController.elimninar);
-    app.patch('/api/usuarios/:id', UsuarioController.deshabilitar);
+export const usuarioRoutes = app => {
+    app.get('/api/usuarios', listar);
+    app.get('/api/usuarios/:id', buscar);
+    app.post('/api/usuarios', crear);
+    app.put('/api/usuarios/:id', editar);
+    app.delete('/api/usuarios/:id', eliminar);
+    app.patch('/api/usuarios/:id', deshabilitar);
 }
