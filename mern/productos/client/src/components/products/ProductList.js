@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 const ProductList = (props) => {
     useEffect(() => {
-        axios.get('http://localhost:8000/api/products')
+        axios.get('/api/products')
             .then(resp => {
                 console.log('RESP', resp);
                 props.setProducts(resp.data);

@@ -6,6 +6,8 @@ import {
   Link
 } from "react-router-dom";
 import ProductManager from './components/products/ProductManager';
+import RegisterForm from './components/register/RegisterForm';
+import Login from './components/login/Login';
 
 
 function App() {
@@ -15,7 +17,10 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Login</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>
             </li>
             <li>
               <Link to="/products">Product Manager</Link>
@@ -25,9 +30,15 @@ function App() {
         </div>
       <Container>
           <Switch>
+            <Route exact path="/">
+              <Login />
+            </Route>
+            <Route path="/register">
+              <RegisterForm />
+            </Route>
             <Route path="/products">
               <ProductManager/>  
-            </Route>  
+            </Route>
           </Switch>  
       </Container>
     </Router>    
