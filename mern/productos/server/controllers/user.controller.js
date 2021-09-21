@@ -39,7 +39,7 @@ module.exports.login = (req, res) => {
                             };
                             const newToken = jwt.sign(payload, jwtConfig.secret);
                             res.cookie("usertoken", newToken, jwtConfig.secret, { httpOly: true })
-                                .json({ success: true });
+                                .json({ success: true, user: payload });
                         } else {
                             res.status(500).json({message: "Password is invalid"});
                         }

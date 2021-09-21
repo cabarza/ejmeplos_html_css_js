@@ -1,12 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import Swal from "sweetalert2";
+import UserContext from "../../context/UserContext";
 
 const Login = () => {
 
     const history = useHistory();
+
+    const context = useContext(UserContext);
 
     const [inputs, setInputs] = useState({
         email: '',
@@ -26,7 +29,8 @@ const Login = () => {
         axios.post('/api/login', inputs)
             .then(resp => {
                 if(resp.data.success) {
-                    history.push('/products');
+                    context.setUser(resp.data.user);
+                    history.push('/products/list');
                 }
             }).catch(err => {
                 Swal.fire('Login attempt', err.response.data.message, 'error');
@@ -52,6 +56,9 @@ const Login = () => {
                     </Col>
                     <Col xs={12} className="mt-3">
                         <Button type="submit">Login</Button>
+                    </Col>
+                    <Col xs={12} className="mt-3">
+                        <Link to="/register">Register new user</Link>
                     </Col>
                 </Row>
             </Form>

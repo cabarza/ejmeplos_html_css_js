@@ -10,6 +10,7 @@ import {
 import ProductList from "./ProductList";
 import {BsFillPlusCircleFill} from 'react-icons/bs';
 import ProductForm from "./ProductForm";
+import Header from "../header/Header";
 
 const ProductManager = (prosp) => {
 
@@ -20,6 +21,7 @@ const ProductManager = (prosp) => {
     return (
         <>
             <Router>
+                <Header></Header>
                 <Row>
                     <Col xs={10}>
                         <h1>Product Manager</h1>

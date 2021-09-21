@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import Swal from "sweetalert2";
 
@@ -15,6 +16,8 @@ const RegisterForm = () => {
 
     const [newUser, setNewUser] = useState(initialState);
     const [errors, setErrors] = useState(initialState);
+
+    const hist = useHistory();
 
     const updateFormValue = (e) => {
         const {name, value} = e.target;
@@ -88,6 +91,7 @@ const RegisterForm = () => {
                     </Col>
                     <Col xs={12} className="mt-3">
                         <Button type="submit">Register</Button>
+                        <Button type="button" onClick={e => hist.push("/")} style={{marginLeft: '10px'}}>Back</Button>
                     </Col>
                 </Row>
             </Form>

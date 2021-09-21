@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Col, Row, Table } from "reactstrap";
 import axios from 'axios';
 import Swal from 'sweetalert2'; 
 import { Link } from "react-router-dom";
 import { BsFillEyeFill, BsFillTrashFill, BsPencil } from "react-icons/bs";
+import UserContext from "../../context/UserContext";
 
 const ProductList = (props) => {
+
+    const context = useContext(UserContext);
     
     useEffect(() => {
         axios.get('/api/products')
@@ -63,8 +66,8 @@ const ProductList = (props) => {
                                 <td>{p.manufacturer[0]?.firstName}</td>
                                 <td>{p.stock}</td>
                                 <td><Link to={`/products/view/${p._id}`}><BsFillEyeFill/></Link> </td>
-                                <td><Link to={`/products/edit/${p._id}`}><BsPencil/></Link> </td>
-                                <td><a onClick={e => deleteFn(e, p)}><BsFillTrashFill/></a> </td>
+                                <td>{context.user.id == p.manufacturer[0]?._id && <Link to={`/products/edit/${p._id}`}><BsPencil/></Link> }</td>
+                                <td>{context.user.id == p.manufacturer[0]?._id && <a onClick={e => deleteFn(e, p)}><BsFillTrashFill/></a> }</td>
                             </tr>
                         )}
                     </tbody>
