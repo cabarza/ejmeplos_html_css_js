@@ -23,7 +23,7 @@ function App() {
               <Link to="/register">Register</Link>
             </li>
             <li>
-              <Link to="/products">Product Manager</Link>
+              <Link to="/products/list">Product Manager</Link>
             </li>
           </ul>
         </nav>

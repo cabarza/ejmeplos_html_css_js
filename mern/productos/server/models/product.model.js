@@ -18,13 +18,23 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: [true, 'The brand is required']
     },
-    manufacturer: {
-        type: String,
-        required: [true, 'The manufacturer is required']
+    manufacturerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'Manufacturer required']
     },
     stock: Number
 
 }, {timestamps: true});
+
+ProductSchema.virtual('manufacturer', {
+    ref: 'User',
+    localField: 'manufacturerId',
+    foreignField: '_id'
+});
+
+ProductSchema.set('toObject', { virtuals: true });
+ProductSchema.set('toJSON', { virtuals: true });
 
 const Product = mongoose.model('Product', ProductSchema);
 module.exports = Product;

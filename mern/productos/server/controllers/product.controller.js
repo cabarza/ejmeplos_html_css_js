@@ -1,22 +1,31 @@
-const { json } = require('express');
 const Product = require('../models/product.model');
+const jwtConfig = require('../config/jwt.config');
+const jwt = require('jsonwebtoken');
 
 module.exports.list = (req, res) => {
-    Product.find({})
+    Product.find({}).populate('manufacturer')
         .then(data => res.json(data))
         .catch(err => res.status(500).json(err))   
 }
 
 module.exports.getById = (req, res) => {
-    Product.findById(req.params.id)
+    Product.findById(req.params.id).populate('manufacturer')
         .then(data => res.json(data))
         .catch(err => res.status(500).json(err))   
 }
 
 module.exports.create = (req, res) => {
-    Product.create(req.body)
-        .then(data => res.json(data))
-        .catch(err => res.status(500).json(err))   
+    jwt.verify(req.cookies.usertoken, jwtConfig.secret, (error, payload) => {
+        if(!error) {
+            const prod = req.body;
+            prod.manufacturerId = payload.id;
+            Product.create(prod)
+            .then(data => res.json(data))
+            .catch(err => res.status(500).json(err));
+        } else {
+            res.status(500).json(error);
+        }
+    });    
 }
 
 module.exports.edit = (req, res) => {
