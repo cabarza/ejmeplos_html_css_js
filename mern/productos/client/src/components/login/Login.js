@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import Swal from "sweetalert2";
@@ -30,6 +30,7 @@ const Login = () => {
             .then(resp => {
                 if(resp.data.success) {
                     context.setUser(resp.data.user);
+                    sessionStorage.setItem('USER_DATA', JSON.stringify(resp.data.user));
                     history.push('/products/list');
                 }
             }).catch(err => {

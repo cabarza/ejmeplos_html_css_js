@@ -7,4 +7,5 @@ module.exports = (app) => {
     app.post('/api/products', authenticate, ProductController.create);
     app.put('/api/products/:id', authenticate, ProductController.edit);
     app.delete('/api/products/:id', authenticate, ProductController.delete);
+    app.patch('/api/products/:id', authenticate, ProductController.buy);
 } 

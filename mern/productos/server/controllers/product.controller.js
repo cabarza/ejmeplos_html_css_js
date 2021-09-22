@@ -39,3 +39,22 @@ module.exports.delete = (req, res) => {
         .then(data => res.json(data))
         .catch(err => res.status(500).json(err))   
 }
+
+module.exports.buy = (req, res) => {
+    Product.findById(req.params.id).populate('manufacturer')
+        .then(prd => {
+            if(prd && prd.stock) {
+                prd.stock -= 1;
+                Product.findByIdAndUpdate(prd._id, prd)
+                    .then(resp => res.json(prd))
+                    .catch(err => res.status(500).json(err));
+            } else {
+                res.status(500).json({errors: {
+                    stock: {
+                        name: 'ValidatorError',
+                        message: 'Not enough stock'
+                    }
+                }})
+            }
+        }).catch(err => res.status(500).json(err));
+}

@@ -23,4 +23,12 @@ require('./routes/user.routes')(app);
 require('./routes/product.route')(app);
 
 
-app.listen(8000, () => console.log('Servidor escuchando en el puerto 8000'));
+const server = app.listen(8000, () => console.log('Servidor escuchando en el puerto 8000'));
+
+const io = require('socket.io')(server);
+
+io.on('connection', socket => {
+    socket.on("buy_event", data => {
+        socket.broadcast.emit('buy_product_event', data);
+    })
+});

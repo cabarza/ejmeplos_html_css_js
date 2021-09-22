@@ -4,6 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2'; 
 import { Link } from "react-router-dom";
 import { BsFillEyeFill, BsFillTrashFill, BsPencil } from "react-icons/bs";
+import { AiFillDollarCircle } from "react-icons/ai";
 import UserContext from "../../context/UserContext";
 
 const ProductList = (props) => {
@@ -39,6 +40,25 @@ const ProductList = (props) => {
         })
     } 
 
+    const buy = (e, p) => {
+        axios.patch('/api/products/'+p._id)
+            .then(resp => {
+                const data = resp.data;
+                const prds = [...props.products];
+                const index = prds.findIndex(prd => prd._id == data._id);
+                prds.splice(index, 1, data);
+                props.setProducts(prds);
+                context.socket.emit('buy_event', data);
+            }).catch(err => Swal.fire('Error buying product', 'Error buying the product', 'error'));
+    }
+
+    context.socket.on("buy_product_event", data => {
+        const prds = [...props.products];
+        const index = prds.findIndex(prd => prd._id == data._id);
+        prds.splice(index, 1, data);
+        props.setProducts(prds);
+    })
+
     return (
         <Row>
             <Col xs={12}>
@@ -54,6 +74,7 @@ const ProductList = (props) => {
                             <th>Ver</th>
                             <th>Editar</th>
                             <th>Eliminar</th>
+                            <th>Comprar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,6 +89,7 @@ const ProductList = (props) => {
                                 <td><Link to={`/products/view/${p._id}`}><BsFillEyeFill/></Link> </td>
                                 <td>{context.user.id == p.manufacturer[0]?._id && <Link to={`/products/edit/${p._id}`}><BsPencil/></Link> }</td>
                                 <td>{context.user.id == p.manufacturer[0]?._id && <a onClick={e => deleteFn(e, p)}><BsFillTrashFill/></a> }</td>
+                                <td>{context.user.id != p.manufacturer[0]?._id && <a onClick={e => buy(e, p)}><AiFillDollarCircle/></a> }</td>
                             </tr>
                         )}
                     </tbody>
